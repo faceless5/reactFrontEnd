@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../layout/Navbar'
 import Footer from '../layout/Footer'
 import Products from '../Products'
@@ -6,31 +6,49 @@ import { Typography, Container, FormControlLabel, Checkbox, Box, Radio, RadioGro
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder'
 import { HomeRepairServiceOutlined, Star } from '@mui/icons-material'
+import Checkbox_category from '../Checkbox_category'
 // import {StarIcon, StarBorderIcon} from '@mui/icons-material'
 
 const Productspage = () => {
+    const [sortBy, setSortBy] = useState('createdAt')
+    const [order, setOrder] = useState('1')
+    const [limit, setLimit] = useState(8)
+    const [skip, setSkip] = useState(0)
+
+    const [filteredProduct, setFilteredProduct] = useState([])
+    const [size, setSize] = useState(0)
+
+
+    const [myFilters, setMyFilters] = useState({
+        filters: {category:[], product_price:[]}
+    })
+
+    const handleFilters = (filters,filterBy) =>{
+        const newFilter = {...myFilters}
+        newFilter.filters[filterBy] = filters
+        // category: mobile_id -> filters: mobile_id, filterBy:category
+        // price: price_id -> filters: price_id, filterBy:price
+        if(filterBy === 'product_price'){
+            newFilter.filters[filterBy] = handlePrice(filters)
+        }
+        setMyFilters(newFilter)
+        
+        
+    }
+    const handlePrice =(index) =>{
+        const data = prices
+        const price = data.find(price=>price.id===index)
+        return price.value
+    }
     return (
         <>
             <Navbar />
             <Container maxWidth='xl'>
                 <div className='row'>
                     <div className='col-md-3'>
-                        <Typography variant='h4' color='secondary' pl={5} pt={5}>Departments</Typography>
-                        <Box pl={5} pt={5}>
-                            <FormControlLabel control={<Checkbox defaultChecked />} label="All" />
-                            <br />
-                            <FormControlLabel control={<Checkbox />} label="Computers" />
-                            <br />
-                            <Checkbox id="checkbox2" />
-                            <label htmlFor='checkbox2'>Mobiles</label>
-                            <br />
-                            <FormControlLabel control={<Checkbox />} label="Cameras" />
-                            <br />
-                            <FormControlLabel control={<Checkbox />} label="Fitness" />
-                            <br />
-                            <FormControlLabel control={<Checkbox />} label="Beauty" />
-                        </Box>
-
+                        <Checkbox_category handleFilters={handleFilters}/>
+                        <RadioGroup/>
+{/* 
                         <Typography variant='h4' color='secondary' mt={5} pl={5} pt={5}>Prices</Typography>
 
                         <RadioGroup
@@ -78,12 +96,15 @@ const Productspage = () => {
                         <StarIcon/><StarIcon/><StarBorderIcon/><StarBorderIcon/><StarBorderIcon/><br/>
                         <StarIcon/><StarBorderIcon/><StarBorderIcon/><StarBorderIcon/><StarBorderIcon/><br/>
 
-<Star/>
+<Star/> */}
 
                     </div>
                     <div className='col-md-9'>
+                    <div className='container mx-auto mt-5'>
+                <div className="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
                         <Products />
-                        <Products />
+                        </div>
+                        </div>
                     </div>
                 </div>
             </Container>

@@ -16,6 +16,11 @@ import PrivateRoute from './route/PrivateRoute'
 import ViewCategories from './components/pages/ViewCategories'
 import AddCategory from './components/pages/AddCategory'
 import EditCategory from './components/pages/EditCategory'
+import ProductsAdmin from './components/pages/ProductsAdmin'
+import AddProduct from './components/pages/AddProduct'
+import Shipping from './components/pages/Shipping'
+import PaymentElement from './components/pages/PaymentElement'
+import UserOrderDetail from './components/pages/UserOrderDetail'
 
 const MyRoutes = () => {
   return (
@@ -45,10 +50,15 @@ const MyRoutes = () => {
           <Route path= '/categories' element={<ViewCategories/>}/>
           <Route path='/category/add' element={<AddCategory/>}/>
           <Route path='/category/update/:category_id' element={<EditCategory/>}/>
+          <Route path='/admin/products' element={<ProductsAdmin/>}/>
+          <Route path='/admin/product/add' element={<AddProduct/>}/>
         </Route>
         
         <Route path='/' element={<PrivateRoute/>}>
           <Route path='/user/profile/' element={<Cart/>}/>
+          <Route path='/shipping' element={<Shipping/>}/>
+          <Route path='/payment' element={<PaymentElement/>}/>
+          <Route path='/orderdetails/:order_id' element={<UserOrderDetail/>}/>
         </Route>
 
       </Routes>

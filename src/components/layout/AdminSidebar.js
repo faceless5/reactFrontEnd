@@ -42,13 +42,13 @@ const AdminSidebar = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link to="#" className="nav-link text-white">
+                            <Link to="/admin/products" className="nav-link text-white">
                                 
                                 View Products
                             </Link>
                         </li>
                         <li>
-                            <Link to="#" className="nav-link text-white">
+                            <Link to="/admin/product/add" className="nav-link text-white">
                                 
                                 Add Products
                             </Link>
